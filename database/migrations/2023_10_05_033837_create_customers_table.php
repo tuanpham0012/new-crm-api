@@ -14,13 +14,14 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('code')->unique();
             $table->string('name');
             $table->string('email');
             $table->string('address')->nullable();
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->string('zalo')->nullable();
+            $table->json('contact')->nullable();
             $table->enum('type', CustomerEnum::CUSTOMER_TYPE)->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

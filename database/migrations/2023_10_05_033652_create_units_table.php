@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('code');
             $table->string('name');
             $table->boolean('status')->default(1)->comment('1 - sử dụng, 0 - ngưng sd');

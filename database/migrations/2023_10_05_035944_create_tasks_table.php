@@ -14,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('name');
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('content')->nullable();
-            $table->enum('type', TaskEnum::OptionOne);
+            $table->enum('type', TaskEnum::TASK_TYPE);
             $table->integer('user_id')->comment('Người tạo');
             $table->integer('customer_id')->nullable()->comment('Khách hàng liên quan');
             $table->integer('task_status_id');

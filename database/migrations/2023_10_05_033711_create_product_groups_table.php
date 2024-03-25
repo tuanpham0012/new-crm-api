@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('product_groups', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('code');
             $table->string('name');
             $table->string('note')->nullable()->comment('ghi chú');

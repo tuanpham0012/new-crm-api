@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('department_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('user_id')->constrained();
             $table->string('position')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Department\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.layout');
+});
+
+Route::prefix('/')->middleware([])->group(function(){
+    Route::get('/departments', [DepartmentController::class, 'view']);
 });

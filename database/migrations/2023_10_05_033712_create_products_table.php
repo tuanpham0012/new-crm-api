@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('code');
             $table->string('name');
-            // $table->foreignId('product_group_id')->constrained()->comment('Nhóm sản phẩm');
-            $table->bigInteger('product_group_id')->nullable()->comment('Nhóm sản phẩm');
-            // $table->foreignId('unit_id')->constrained()->comment('Đơn vị tính');
-            $table->bigInteger('unit_id')->nullable()->comment('Đơn vị tính');
+            $table->foreignId('product_group_id')->nullable()->constrained()->comment('Nhóm sản phẩm');
+            // $table->bigInteger('product_group_id')->nullable()->comment('Nhóm sản phẩm');
+            $table->foreignId('unit_id')->constrained()->comment('Đơn vị tính');
+            // $table->bigInteger('unit_id')->nullable()->comment('Đơn vị tính');
             $table->bigInteger('price')->comment('đơn giá');
             $table->tinyInteger('edit_price')->default(1)->comment('Mặc định là 1: được phép sửa giá, 0 là không cho phép sửa giá');
             $table->string('image_link')->nullable()->comment('link ảnh sản phẩm');

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('customer_call_histories', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->integer('user_id')->comment('Người liên hệ');
             $table->integer('customer_id');
             $table->string('phone_contacts');

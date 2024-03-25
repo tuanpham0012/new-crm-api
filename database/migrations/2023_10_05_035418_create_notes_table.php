@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->unsignedBigInteger('entity_id')->comment('id của bản ghi');
             $table->string('entity_type')->nullable()->comment('tên bảng');
             $table->text('content');

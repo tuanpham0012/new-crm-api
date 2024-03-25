@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('title');
             $table->string('content');
             $table->integer('user_id')->comment('Người nhận!');
-            $table->boolean('read')->default(0);
+            $table->boolean('is_readed')->default(0);
             $table->unsignedBigInteger('entity_id')->comment('id của bản ghi');
             $table->string('entity_type')->nullable()->comment('tên bảng');
             $table->unsignedBigInteger('created_by')->nullable();

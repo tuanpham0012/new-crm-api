@@ -1,0 +1,221 @@
+@import "reset-css.scss";
+
+body {
+    // font-family: "Helvetica Neue", Helvetica, Arial, 文泉驛正黑, "WenQuanYi Zen Hei", "Hiragino Sans GB", "儷黑 Pro", "LiHei Pro", "Heiti TC", 微軟正黑體, "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif !important;
+    color: rgba(0, 0, 0, 0.8) !important;
+    line-height: 1.2 !important;
+}
+
+/* max-height min-height max-width min-width %*/
+$maxPercent: 20;
+
+@for $i from 1 through $maxPercent {
+    .max-h-#{$i * 5} {
+        max-height: (5%*$i) !important;
+    }
+
+    .min-h-#{$i * 5} {
+        min-height: (5%*$i) !important;
+    }
+
+    .max-w-#{$i * 5} {
+        max-width: (5%*$i) !important;
+    }
+
+    .min-w-#{$i * 5} {
+        min-width: (5%*$i) !important;
+    }
+
+    .h-#{$i * 5} {
+        height: (5%*$i) !important;
+    }
+
+    .w-#{$i * 5} {
+        width: (5%*$i) !important;
+    }
+}
+
+/* end  max-height -min-height -max-width -min-width %*/
+
+
+.max-w-content {
+    max-width: max-content;
+}
+
+.w-content {
+    width: max-content;
+}
+
+/* max-height min-height max-width min-width px*/
+$maxPx: 250;
+
+@for $i from 1 through $maxPx {
+    .max-h-#{$i * 5}px {
+        max-height: (5*$i) + px !important;
+    }
+
+    .min-h-#{$i * 5}px {
+        min-height: (5*$i) + px !important;
+    }
+
+    .max-w-#{$i * 5}px {
+        max-width: (5*$i) + px !important;
+    }
+    .min-w-#{$i * 5}px {
+        min-width: (5*$i) + px !important;
+    }
+    .h-#{$i * 5}px {
+        height: (5*$i) + px !important;
+    }
+    .w-#{$i * 5}px {
+        width: (5*$i) + px !important;
+    }
+}
+
+/* end  max-height -min-height -max-width -min-width px*/
+
+/* font-weight*/
+$maxPx: 20;
+
+@for $i from 1 through $maxPx {
+    .fw-#{$i * 50} {
+        font-weight: (50*$i) !important;
+    }
+}
+
+/* end  max-height -min-height -max-width -min-width px*/
+
+/* table css */
+
+.table {
+    td, th{
+        padding: .4rem .6rem;
+        vertical-align: middle;
+        &.row-icon{
+            padding: 0;
+            margin: 0;
+        }
+    }
+    tr {
+        &.disabled{
+            td, th{
+                background-color: #ededed !important;
+                pointer-events: none;
+            }
+        }
+        &.active {
+            td, th{
+                background-color: #a5d1fd;
+            }
+
+        }
+    }
+}
+
+/* button css*/
+.btn-icon{
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.btn-primary i {
+    color: #fff;
+    background-color: #3949AB;
+    border-color: #3544a0;
+}
+
+/** modal css */
+.modal-dialog{
+    .modal-header{
+        padding: .5rem 1rem;
+        align-items: center;
+    }
+    .modal-content{
+        border-radius: 8px;
+    }
+    .modal-body{
+        min-height: 30vh;
+    }
+    .modal-footer {
+        padding: .5rem 1rem;
+    }
+}
+
+/** input css */
+
+.form-control {
+    .disabled{
+        background-color: #7c7c7d;
+    }
+}
+.form-label-cs{
+    display:inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+    box-sizing: border-box;
+}
+.row-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: .335rem 0;
+    label{
+        margin: 0;
+    }
+}
+.disabled{
+    input, select{
+        background-color: #7c7c7d;
+        pointer-events: none;
+    }
+}
+.invalid-feedback{
+    display: block;
+}
+.form-checkbox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input{
+        margin: .5rem 0;
+        position: relative;
+    }
+}
+/* Product css */
+
+.product-2 {
+    overflow: unset;
+    transition: all 0.3s;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px 3px rgba(60, 64, 67, .1);
+    .product-body {
+        padding: 0 1rem;
+    }
+    .product-title {
+        display: block;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        color: #111;
+        height: 40px;
+        overflow: hidden;
+        margin: 0;
+    }
+    .product-price{
+        height: 30px;
+        font-size: 14px;
+        line-height: 30px;
+    }
+    .product-nav-dots{
+        margin: 0.875rem !important;
+    }
+}
+
+/* end product css*/
+
+

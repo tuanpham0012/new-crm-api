@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('project_users', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();
             $table->string('position')->nullable();

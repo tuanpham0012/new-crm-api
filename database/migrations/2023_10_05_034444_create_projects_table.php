@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('code')->comment('mã dự án');
             $table->string('name')->comment('tên dự án');
             $table->foreignId('city_id')->nullable()->constrained()->comment('id tỉnh/thành phố');

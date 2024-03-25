@@ -10,8 +10,9 @@
         "guzzlehttp/guzzle": "^7.2",
         "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^10.10",
-        "laravel/sanctum": "^3.2",
+        "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "spatie/laravel-fractal": "^6.0",
         "wildside/userstamps": "^2.3"
     },
     "require-dev": {

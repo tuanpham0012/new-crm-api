@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('quote_products', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->foreignId('quote_id')->constrained()->comment('biên bản báo giá');
             $table->foreignId('product_id')->constrained()->comment('id sản phẩm');
             $table->bigInteger('price')->comment('giá sản phẩm');
