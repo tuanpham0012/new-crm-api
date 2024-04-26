@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_prices', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->nullable()->unique();
+            $table->uuid('uuid')->unique();
             $table->foreignId('product_id')->constrained();
             $table->integer('price');
             $table->date('from_date')->nullable();

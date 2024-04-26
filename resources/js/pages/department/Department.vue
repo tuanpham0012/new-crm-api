@@ -1,13 +1,11 @@
 <template lang="">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div
-                    class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3"
+                    class="card-header d-flex justify-content-end align-items-center flex-wrap gap-3"
                 >
-                    <h6>Danh sách bộ phận</h6>
-
-                    <button class="btn btn-sm btn-primary" @click="departmentStore.toggleModal(true)">
+                    <button class="btn btn-sm btn-primary" @click="toggleShowModal()">
                         <i class="feather icon-plus"></i>
                         Thêm
                     </button>
@@ -17,13 +15,12 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
                                 <thead>
-                                    <tr>
+                                      <tr>
                                         <th class="text-center">#</th>
                                         <th>Mã</th>
-                                        <th>Tên</th>
-                                        <th>Show</th>
-                                        <th class="text-center">Up</th>
-                                        <th class="text-center">Down</th>
+                                        <th>Tên phòng ban</th>
+                                        <th>Ghi chú</th>
+                                        <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,23 +28,23 @@
                                         v-for="(item, index) in departments"
                                         :key="index"
                                         :class="{
-                                            'active':
-                                                selectItem &&
-                                                item.uuid === selectItem.uuid,
-                                            disabled: item.parent_id === null,
+                                            'active': item.uuid === uuid,
+                                            'disabled': item.parent_id === null,
                                         }"
-                                        @click="toggleSelectItem(item)"
                                     >
-                                        <td class="w-75px text-center">
+                                        <td class="w-[5%] min-w-[75px] text-center">
                                             {{ index + 1 }}
                                         </td>
-                                        <td class="w-175px">
+                                        <td class="min-w-[200px] w-[25%]" :class="'ps-' + ((item.depth) * 2)">
                                             {{ item.code }}
                                         </td>
-                                        <td>{{ item.name }}</td>
-                                        <td>{{ item.name }}</td>
-                                        <td>{{ item.name }}</td>
-                                        <td>{{ item.name }}</td>
+                                        <td class="min-w-[250px] w-[30%]">{{ item.name }}</td>
+                                        <td class="min-w-[300px] w-[40%]">{{ item.note }}</td>
+                                        <td class="min-w-[100px] text-center">
+                                            <button class="btn btn-sm btn-icon w-[25px] h-[25px] hover:scale-125" @click="toggleShowModal(item.uuid)">
+                                                 <i class="fas fa-edit text-green-400" aria-hidden="true"></i> 
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -57,13 +54,18 @@
             </div>
         </div>
     </div>
-    <DepartmentModal :id="department" v-if="showModal" @close="departmentStore.toggleModal(false)"></DepartmentModal>
+    <DepartmentModal :id="uuid" v-if="showModal" @close="toggleCloseModal()"></DepartmentModal>
+    <loading />
 </template>
 <script setup>
 import { ref, computed, onBeforeMount } from "vue";
 import DepartmentModal from "./DepartmentModal.vue";
 import { useDepartmentStore } from "@store/department.js";
+import loading from "@component/loadings/BaseLoading.vue";
 const departmentStore = useDepartmentStore();
+import Swal from 'sweetalert2'
+
+const uuid = ref(null);
 
 const departments = computed(() => {
     return departmentStore.$state.departments.data ?? [];
@@ -72,6 +74,17 @@ const departments = computed(() => {
 const showModal = computed(() => {
     return departmentStore.$state.showModal ?? false;
 });
+
+const toggleShowModal = (id = null) => {
+    uuid.value = id;
+    departmentStore.toggleModal(true)
+}
+
+const toggleCloseModal = () => {
+    uuid.value = null;
+    getData();
+    departmentStore.toggleModal(false)
+}
 
 const getData = () => {
     departmentStore.getData();

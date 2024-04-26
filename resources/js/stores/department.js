@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { getList, update, create, destroy } from "@/helpers/axiosConfig.js";
+import { getList, update, create, destroy, show } from "@/helpers/axiosConfig.js";
+import { successMessage } from '@/helpers/toast'
 const url = (id = null) => {
     if (id === null) {
         return '/api/departments';
@@ -15,6 +16,7 @@ export const useDepartmentStore = defineStore("departmentStore", {
             code: 200,
             message: '',
         },
+        department: null,
         errors: null,
         showModal: false
     }),
@@ -29,17 +31,27 @@ export const useDepartmentStore = defineStore("departmentStore", {
         },
         getData(page = 1, per_page = 30, search) {
             getList(url(), {
-                page: page,
-                per_page: per_page,
-                ...search,
-            }, {
-                'portal-id': 1
-            }
-            ).then((res) => {
-                console.log(res.data);
-                this.departments = res.data;
-                this.errors = [];
-            })
+                    page: page,
+                    per_page: per_page,
+                    ...search,
+                }, {
+                    'portal-id': 1
+                }).then((res) => {
+                    console.log(res.data);
+                    this.departments = res.data;
+                    this.errors = [];
+                })
+                .catch((err) => {
+                    this.errors = err.response.data.errors;
+                });
+        },
+        showData(id) {
+            this.department = null;
+            show(url(id)).then((res) => {
+                    console.log(res.data);
+                    this.department = res.data.data;
+                    this.errors = [];
+                })
                 .catch((err) => {
                     this.errors = err.response.data.errors;
                 });
@@ -49,7 +61,9 @@ export const useDepartmentStore = defineStore("departmentStore", {
             create(url(), data)
                 .then((res) => {
                     // this.pushData(res.data.data);
+                    successMessage(res.data.message)
                     this.getData()
+
                     this.toggleModal(false);
                 }).catch((err) => {
                     console.log(err);
@@ -58,12 +72,13 @@ export const useDepartmentStore = defineStore("departmentStore", {
                     }
                 })
         },
-        updateData(uuid, data, loadAll = false) {
+        updateData(id, data, loadAll = false) {
             this.errors = null
-            update(url(uuid), data)
+            update(url(id), data)
                 .then((res) => {
-                    // this.updateRowData(res.data);
+                    successMessage(res.data.message)
                     this.getData()
+                    this.toggleModal(false);
                 }).catch(err => {
                     console.log(err);
                     if (err.response.data.errors) {
@@ -87,8 +102,8 @@ export const useDepartmentStore = defineStore("departmentStore", {
         setDataError() {
             this.errors = null;
         },
-        deleteRow(uuid) {
-            destroy(url(uuid))
+        deleteRow(id) {
+            destroy(url(id))
                 .then((res) => {
                     // this.updateRowData(res.data);
                     toastr.info('Are you the 6 fingered man?')

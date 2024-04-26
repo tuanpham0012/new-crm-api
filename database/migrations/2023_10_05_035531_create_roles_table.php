@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('name')->comment('Tên nhóm quyền');
             $table->boolean('status')->default(1)->comment('1 - hoạt động, 0 - ngừng hoạt động');
             $table->unsignedBigInteger('created_by')->nullable();

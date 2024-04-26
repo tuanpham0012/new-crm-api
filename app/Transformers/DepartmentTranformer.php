@@ -37,11 +37,11 @@ class DepartmentTranformer extends TransformerAbstract
             'uuid' => $entry->uuid,
             'code' => $entry->code,
             'name' => $entry->name,
+            'note' => $entry->note,
             '_lft' => $entry->_lft,
             '_rgt' => $entry->_rgt,
             'depth' => $entry->depth,
             'parent_id' => $entry->parent_id,
-            'is_show_menu' => $entry->is_show_menu
         ];
     }
 }

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->nullable()->unique();
+            $table->uuid('uuid')->unique();
             $table->string('code')->unique();
             $table->string('name');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('date_of_birth')->nullable();
             $table->string('address')->nullable();
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('username')->comment('tài khoản user');
+            $table->string('username')->unique()->comment('tài khoản user');
             $table->string('password');
             $table->integer('role_id')->default('3');
             $table->string('note')->nullable();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->nullable()->unique();
+            $table->uuid('uuid')->unique();
             $table->string('code');
             $table->string('title')->comment('tiêu đề');
             $table->foreignId('project_id')->constrained()->comment('dự án');

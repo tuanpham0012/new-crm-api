@@ -29,20 +29,20 @@ trait APIResponseHandlerTrait
         return $this->transformer;
     }
 
-    protected function successResponse($data, $code = 200)
+    protected function successResponse($data, $message='', $code = 200)
     {
         if (isset($data['data']) && $data['data'] == null) {
-            $data = array_merge([
-                'code' => $code,
-                'success' => true,
-                'data' => $data,
-                'message' => 'Không có dữ liệu tìm kiếm.'
-            ], $data);
-            return response()->json($data, $code);
+            $message = 'Không có dữ liệu tìm kiếm.';
+        }
+        if(!is_array($data)){
+            $data = [
+                'data' => $data
+            ];
         }
         $data = array_merge([
             'code' => $code,
-            'success' => true
+            'success' => true,
+            'message' => $message
         ], $data);
         return response()->json($data, $code);
     }
@@ -188,7 +188,7 @@ trait APIResponseHandlerTrait
         return $this->successResponse($data, $code);
     }
 
-    public function responseOne(Model $entry, $code = 200, $options = [])
+    public function responseOne(Model $entry, $message = '', $code = 200, $options = [])
     {
         if (!isset($options['transform']) || $options['transform'] === true) {
             $entry = $this->transformData($entry, $this->transformer);
@@ -208,13 +208,10 @@ trait APIResponseHandlerTrait
                 $entry['data']['close_time'] =$options['datas']['close_time'];
             }
         }
-        if (array_key_exists('message', $options)) {
-            $entry['message'] = $options['message'];
-        }
         if (array_key_exists('appendData', $options) && !empty($options['appendData'])) {
             $entry = array_merge($entry, $options['appendData']);
         }
-        return $this->successResponse($entry, $code);
+        return $this->successResponse($entry, $message, $code);
     }
 
     public function responseOneWithAppend(Model $entry, $code = 200, $options = [], $appendData = [])

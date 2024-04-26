@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('customer_reports', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->nullable()->unique();
+            $table->uuid('uuid')->unique();
             $table->integer('customer_id');
             $table->text('content');
             $table->text('note');

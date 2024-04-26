@@ -1,141 +1,89 @@
 @import "reset-css.scss";
-
 body {
     // font-family: "Helvetica Neue", Helvetica, Arial, 文泉驛正黑, "WenQuanYi Zen Hei", "Hiragino Sans GB", "儷黑 Pro", "LiHei Pro", "Heiti TC", 微軟正黑體, "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif !important;
-    color: rgba(0, 0, 0, 0.8) !important;
-    line-height: 1.2 !important;
+    // color: #1f1f1f !important;
+    line-height: 1.2rem !important;
+    font-size: 1rem;
 }
 
-/* max-height min-height max-width min-width %*/
-$maxPercent: 20;
-
-@for $i from 1 through $maxPercent {
-    .max-h-#{$i * 5} {
-        max-height: (5%*$i) !important;
-    }
-
-    .min-h-#{$i * 5} {
-        min-height: (5%*$i) !important;
-    }
-
-    .max-w-#{$i * 5} {
-        max-width: (5%*$i) !important;
-    }
-
-    .min-w-#{$i * 5} {
-        min-width: (5%*$i) !important;
-    }
-
-    .h-#{$i * 5} {
-        height: (5%*$i) !important;
-    }
-
-    .w-#{$i * 5} {
-        width: (5%*$i) !important;
-    }
-}
-
-/* end  max-height -min-height -max-width -min-width %*/
-
-
-.max-w-content {
-    max-width: max-content;
-}
-
-.w-content {
-    width: max-content;
-}
-
-/* max-height min-height max-width min-width px*/
-$maxPx: 250;
-
-@for $i from 1 through $maxPx {
-    .max-h-#{$i * 5}px {
-        max-height: (5*$i) + px !important;
-    }
-
-    .min-h-#{$i * 5}px {
-        min-height: (5*$i) + px !important;
-    }
-
-    .max-w-#{$i * 5}px {
-        max-width: (5*$i) + px !important;
-    }
-    .min-w-#{$i * 5}px {
-        min-width: (5*$i) + px !important;
-    }
-    .h-#{$i * 5}px {
-        height: (5*$i) + px !important;
-    }
-    .w-#{$i * 5}px {
-        width: (5*$i) + px !important;
-    }
-}
 
 /* end  max-height -min-height -max-width -min-width px*/
 
-/* font-weight*/
-$maxPx: 20;
-
-@for $i from 1 through $maxPx {
-    .fw-#{$i * 50} {
-        font-weight: (50*$i) !important;
-    }
-}
-
-/* end  max-height -min-height -max-width -min-width px*/
 
 /* table css */
 
 .table {
-    td, th{
+    thead th {
         padding: .4rem .6rem;
         vertical-align: middle;
-        &.row-icon{
+        background-color: var(--bs-primary) !important;
+        color: var(--bs-light) !important;
+        &.row-icon {
+            padding: 0;
+            margin: 0;
+        }
+    }
+    tbody td {
+        padding: .4rem .6rem;
+        vertical-align: middle;
+        &.row-icon {
             padding: 0;
             margin: 0;
         }
     }
     tr {
-        &.disabled{
-            td, th{
-                background-color: #ededed !important;
+        &.disabled {
+            td,
+            th {
+                background-color: #f8f8f8 !important;
                 pointer-events: none;
             }
         }
         &.active {
-            td, th{
+            td,
+            th {
                 background-color: #a5d1fd;
             }
-
         }
     }
 }
 
+
 /* button css*/
-.btn-icon{
+
+.btn-icon {
     border: none;
-    background-color: rgba(255, 255, 255, 0);
     padding: 0;
     box-sizing: border-box;
 }
 
-.btn-primary i {
-    color: #fff;
-    background-color: #3949AB;
-    border-color: #3544a0;
+.btn-primary {
+    color: var(--bs-light);
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    i {
+        color: var(--bs-light);
+    }
 }
 
+
 /** modal css */
-.modal-dialog{
-    .modal-header{
+
+.modal-dialog {
+    .modal-header {
         padding: .5rem 1rem;
         align-items: center;
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+        .modal-title {
+            font-size: 1.125rem;
+            color: var(--bs-light) !important;
+        }
     }
-    .modal-content{
+    .modal-content {
         border-radius: 8px;
     }
-    .modal-body{
+    .modal-body {
         min-height: 30vh;
     }
     .modal-footer {
@@ -143,48 +91,57 @@ $maxPx: 20;
     }
 }
 
+
 /** input css */
 
 .form-control {
-    .disabled{
+    .disabled {
         background-color: #7c7c7d;
     }
 }
-.form-label-cs{
-    display:inline-block;
+
+.form-label-cs {
+    display: inline-block;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
     box-sizing: border-box;
 }
+
 .row-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: .335rem 0;
-    label{
+    label {
         margin: 0;
     }
 }
-.disabled{
-    input, select{
+
+.disabled {
+    input,
+    select {
         background-color: #7c7c7d;
         pointer-events: none;
     }
 }
-.invalid-feedback{
+
+.invalid-feedback {
     display: block;
 }
-.form-checkbox{
+
+.form-checkbox {
     display: flex;
     flex-direction: column;
     align-items: center;
-    input{
+    input {
         margin: .5rem 0;
         position: relative;
     }
 }
+
+
 /* Product css */
 
 .product-2 {
@@ -206,16 +163,19 @@ $maxPx: 20;
         overflow: hidden;
         margin: 0;
     }
-    .product-price{
+    .product-price {
         height: 30px;
         font-size: 14px;
         line-height: 30px;
     }
-    .product-nav-dots{
+    .product-nav-dots {
         margin: 0.875rem !important;
     }
 }
 
+.collapse {
+    visibility: unset !important;
+}
+
+
 /* end product css*/
-
-

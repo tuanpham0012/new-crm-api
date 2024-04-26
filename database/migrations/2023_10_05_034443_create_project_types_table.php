@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('project_types', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->nullable()->unique();
+            $table->uuid('uuid')->unique();
             $table->string('code')->comment('mã loại dự án');
             $table->string('name')->comment('tên loại dự án');
             $table->string('note')->nullable()->comment('ghi chú dự án');

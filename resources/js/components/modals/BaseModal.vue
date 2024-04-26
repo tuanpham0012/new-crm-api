@@ -63,4 +63,6 @@ const closeModal = () => {
     --bs-modal-footer-border-width: var(--bs-border-width);
     background-color: var(--bs-modal-color);
 }
+
+
 </style>

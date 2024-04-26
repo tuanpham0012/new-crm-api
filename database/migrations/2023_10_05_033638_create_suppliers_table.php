@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->bigIncrements("id");
-            $table->uuid("uuid")->nullable()->unique();
+            $table->uuid("uuid")->unique();
             $table->string("tax_code")->comment("Mã số thuế")->nullable();
             $table->string("agency_name")->comment("Tên công ty")->nullable();
             $table->string("agency_address")->comment("Địa chỉ công ty")->nullable();

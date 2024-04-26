@@ -18,7 +18,7 @@
                     <div class="input-group">
                         <input type="text" id="m-search" class="form-control" placeholder="Search . . .">
                         <a href="#!" class="input-group-append search-close">
-                            <i class="feather icon-x input-group-text"></i>
+                            <i class="feather icon-x input-group-text px-2"></i>
                         </a>
                         <span class="input-group-append search-btn btn btn-primary">
 								<i class="feather icon-search input-group-text"></i>

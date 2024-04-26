@@ -13,5 +13,13 @@ class BaseModel extends Model
     use SoftDeletes;
     use Userstamps;
 
-    
+    public function findUuid($uuid)
+    {
+        return $this->where('uuid', $uuid)->first();
+    }
+
+    public function updateForUuid($uuid, $data)
+    {
+        return $this->where('uuid', $uuid)->update($data);
+    }
 }

@@ -40,14 +40,10 @@
     @vite(['resources/css/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 </head>
 
-<body class="">
+<body class="loading">
 
         <!-- [ Pre-loader ] start -->
-        <div class="loader-bg">
-            <div class="loader-track">
-                <div class="loader-fill"></div>
-            </div>
-        </div>
+        <loading></loading>
         <!-- [ Pre-loader ] End -->
 
         @include('layouts.navbar')`
@@ -55,18 +51,19 @@
 
         <!-- [ Main Content ] start -->
         <div class="pcoded-main-container" id="app">
-            <div class="pcoded-wrapper">
+            <div class="pcoded-wrapper relative">
+                
                 <div class="pcoded-content">
                     <div class="pcoded-inner-content">
                         <div class="main-body">
                             <div class="page-wrapper">
                                 <!-- [ breadcrumb ] start -->
                                 <div class="page-header">
-                                    <div class="page-block">
+                                    <div class="card page-block">
                                         <div class="row align-items-center">
                                             <div class="col-md-12">
                                                 <div class="page-header-title">
-                                                    <h5>{{ $page ?? '' }}</h5>
+                                                    <h5 class="text-[1.125rem] font-semibold m-0">{{ $page ?? '' }}</h5>
                                                 </div>
 {{--                                                <ul class="breadcrumb">--}}
 {{--                                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>--}}

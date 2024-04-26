@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->nullable()->unique();
-            $table->string('code')->comment('mã bộ phận');
+            $table->uuid('uuid')->unique();
+            $table->string('code')->unique()->comment('mã bộ phận');
             $table->string('name')->comment('tên bộ phận');
             $table->string('note')->nullable()->comment('ghi chú bộ phận');
             $table->tinyInteger('status')->default(1)->comment('1 là sử dụng, 0 là ngừng sd trạng thái bộ phận');

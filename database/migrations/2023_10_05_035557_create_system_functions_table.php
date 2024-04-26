@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('system_functions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('code')->comment('Mã chức năng');
             $table->string('name')->comment('Tên chức năng');
             $table->integer('position')->nullable()->comment('Vị trí thứ chức năng nếu cần.');

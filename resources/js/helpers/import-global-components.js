@@ -2,6 +2,7 @@
  * client components
  */
 import Department from '@page/department/Department.vue';
+import Loading from "@component/loadings/BaseLoading.vue";
 /** end register component */
 
 
@@ -9,6 +10,7 @@ import Department from '@page/department/Department.vue';
 /** end register component */
 
 const globalComponent = {
-    Department
+    Department,
+    Loading
 }
 export default globalComponent

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('role_system_functions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('system_function_id')->constrained();
             $table->foreignId('role_id')->constrained();
 

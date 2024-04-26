@@ -1,5 +1,5 @@
 <template lang="">
-    <model :title="!id ? 'Thêm mới' : 'Cập nhật'" modal-size="modal-lg" @close="() => { emits('close')}">
+    <model :title="!id ? 'Thêm mới phòng ban' : 'Cập nhật phòng ban'" modal-size="modal-lg" @close="() => { emits('close')}">
         <template #body>
             <div class="col-sm-12">
                 <div class="row">
@@ -17,7 +17,7 @@
                                 id="parent_id"
                                 v-model="department.parent_id"
                             >
-                                <option v-for="(item, index) in departments" :key="index" :value="item.id" :selected="item.code == 'ROOT'">{{ item.name }}</option>
+                                <option v-for="(item, index) in listParent(departments)" :key="index" :value="item.id" :selected="item.code == 'ROOT'" :class="'ps-' + ((item.depth) * 2)">{{ item.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -84,16 +84,17 @@
                 </div>
             </div>
         </template>
-        <template #footer>
+<template #footer>
             <button class="btn btn-sm btn-success" @click="save()">Lưu lại</button>
             <button class="btn btn-sm btn-secondary" @click="() => { emits('close')}">Đóng</button>
         </template>
-    </model>
+</model>
 </template>
 <script setup>
-import {reactive, computed} from 'vue'
+import { reactive, computed, onBeforeMount, watch } from 'vue'
 import Model from "@component/modals/BaseModal.vue";
 import { useDepartmentStore } from '@store/department.js'
+import { textCode, removeVietnameseTones } from '@/services/utils.js'
 
 /**
  * variable
@@ -109,30 +110,55 @@ const emits = defineEmits(['close']);
 
 const departmentStore = useDepartmentStore();
 
-const department = reactive({
-    id: null,
-    uuid: null,
-    code: '',
-    name: '',
-    note: '',
-    parent_id: 1,
-    status: true,
-})
+// const department = reactive({
+//     id: null,
+//     uuid: null,
+//     code: '',
+//     name: '',
+//     note: '',
+//     parent_id: 1,
+//     status: true,
+// })
 
 const departments = computed(() => {
     return departmentStore.$state.departments.data ?? [];
 });
 
+const department = computed(() => {
+    return departmentStore.$state.department ?? {
+        id: null,
+        uuid: null,
+        code: '',
+        name: '',
+        note: '',
+        parent_id: 1,
+        status: true,
+    };
+});
+
+watch(() => department.code, (newVal, oldVal) => { department.code = textCode(removeVietnameseTones(newVal)).toUpperCase() })
+
 /**
  * function
  */
 const save = () => {
-    if(department.uuid){
-
-    }else{
-        departmentStore.createData(department)
+    if (department.value.uuid) {
+        console.log(department);
+        departmentStore.updateData(department.value.uuid, department.value)
+    } else {
+        departmentStore.createData(department.value)
     }
 }
 
+const listParent = (list) => {
+    return list.filter( (x) => x.code !== department.value.code && x.depth < 2 )
+}
+
+onBeforeMount( async() => {
+    if (props.id) {
+        await departmentStore.showData(props.id);
+    }
+
+})
 </script>
 <style lang=""></style>
