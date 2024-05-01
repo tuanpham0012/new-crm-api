@@ -3038,6 +3038,7 @@ pre[class*=language-]:before {
     margin-left: 264px;
     min-height: 95vh;
     transition: all 0.3s ease-in-out;
+    background-color: rgb(235, 242, 243);
 }
 
 

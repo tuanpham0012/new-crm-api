@@ -154,9 +154,13 @@ const listParent = (list) => {
     return list.filter( (x) => x.code !== department.value.code && x.depth < 2 )
 }
 
+const getData = async (id) => {
+    await departmentStore.showData(props.id)
+}
+
 onBeforeMount( async() => {
     if (props.id) {
-        await departmentStore.showData(props.id);
+        await getData(props.id)
     }
 
 })

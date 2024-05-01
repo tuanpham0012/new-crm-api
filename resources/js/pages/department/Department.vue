@@ -54,8 +54,30 @@
             </div>
         </div>
     </div>
-    <DepartmentModal :id="uuid" v-if="showModal" @close="toggleCloseModal()"></DepartmentModal>
-    <loading />
+    <Suspense>
+        <template #default>
+            <DepartmentModal :id="uuid" v-if="showModal" @close="toggleCloseModal()"></DepartmentModal>
+        </template>
+        <template #fallback>
+            <div class="modal fade show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ddd</h5>
+                            <!-- <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close" @click="closeModal()"></button> -->
+                        </div>
+                        <div class="modal-body">
+                            ...Loading
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </Suspense>
+    
 </template>
 <script setup>
 import { ref, computed, onBeforeMount } from "vue";
