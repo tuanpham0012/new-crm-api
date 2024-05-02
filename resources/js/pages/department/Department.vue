@@ -80,12 +80,16 @@
     
 </template>
 <script setup>
-import { ref, computed, onBeforeMount } from "vue";
-import DepartmentModal from "./DepartmentModal.vue";
+import { ref, computed, onBeforeMount, defineAsyncComponent } from "vue";
+// import DepartmentModal from "./DepartmentModal.vue";
 import { useDepartmentStore } from "@store/department.js";
 import loading from "@component/loadings/BaseLoading.vue";
 const departmentStore = useDepartmentStore();
 import Swal from 'sweetalert2'
+
+const DepartmentModal = defineAsyncComponent(() =>
+  import('./DepartmentModal.vue')
+);
 
 const uuid = ref(null);
 
