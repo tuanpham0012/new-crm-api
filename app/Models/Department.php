@@ -44,6 +44,6 @@ class Department extends BaseModel
     }
 
     public function getData(){
-        return $this->query()->with(['parent', 'children'])->withDepth()->orderBy('parent_id', 'asc')->orderBy('_lft', 'asc');
+        return $this->query()->with(['parent', 'children'])->withDepth()->orderBy('_lft', 'asc');
     }
 }

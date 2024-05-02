@@ -15,10 +15,9 @@
                             <select
                                 class="form-select"
                                 id="parent_id"
-                                :disabled="department.uuid"
                                 v-model="department.parent_id"
                             >
-                                <option v-for="(item, index) in departments" :key="index" :value="item.id" :selected="item.code == 'ROOT'" :class="'ps-' + ((item.depth) * 2)">{{ item.name }}</option>
+                                <option v-for="(item, index) in departments" :key="index" :value="item.id" :selected="item.code == 'ROOT'" :class="'ps-' + ((item.depth) * 2)"><span v-for="(index) in item.depth">.</span>{{ item.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -33,7 +32,7 @@
                                 type="text"
                                 class="form-control form-control-sm disabled"
                                 id="code"
-                                
+                                :disabled="department.uuid"
                                 placeholder="Nhập mã bộ phận..."
                                 v-model="department.code"
                             />
@@ -98,7 +97,7 @@ import { useDepartmentStore } from '@store/department.js'
 import { textCode, removeVietnameseTones } from '@/services/utils.js'
 
 /**
- * variable 
+ * variable
  */
 const props = defineProps({
     id: {
@@ -122,7 +121,7 @@ const newDepartment = reactive({
 })
 
 const departments = computed(() => {
-    return departmentStore.$state.departments.data ? departmentStore.$state.departments.data.filter( (x) => x.code !== department.value.code && x.depth < 2 ) : [];
+    return departmentStore.$state.departments.data ? departmentStore.$state.departments.data.filter( (x) => x.code !== department.value.code) : [];
 });
 
 const department = computed(() => {
@@ -130,7 +129,7 @@ const department = computed(() => {
 });
 
 watch(() => department.value.code, (newVal, oldVal) => {
-    department.value.code = textCode(removeVietnameseTones(newVal)).toUpperCase() 
+    department.value.code = textCode(removeVietnameseTones(newVal)).toUpperCase()
 })
 
 /**
