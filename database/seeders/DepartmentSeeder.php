@@ -15,12 +15,46 @@ class DepartmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Department::create(
+        $data = [
             [
                 'uuid' => Str::uuid(),
                 'code' => 'ROOT',
                 'name' => 'Root'
-            ]
-        );
+            ],
+            [
+                'uuid' => Str::uuid(),
+                'code' => 'HANHCHINH',
+                'name' => 'Hành chính',
+                'parent_id' => 1
+            ],
+            [
+                'uuid' => Str::uuid(),
+                'code' => 'KETOAN',
+                'name' => 'Kế toán',
+                'parent_id' => 1
+            ],
+            [
+                'uuid' => Str::uuid(),
+                'code' => 'KINHDOANH',
+                'name' => 'Kinh doanh',
+                'parent_id' => 1
+            ],
+            [
+                'uuid' => Str::uuid(),
+                'code' => 'PHATTRIEN',
+                'name' => 'Phát triển',
+                'parent_id' => 1
+            ],
+            [
+                'uuid' => Str::uuid(),
+                'code' => 'NHANSU',
+                'name' => 'Nhân sự',
+                'parent_id' => 1
+            ],
+        ];
+        foreach($data as $item){
+            Department::create($item);
+        }
+
     }
 }

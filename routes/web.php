@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Department\DepartmentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Department\DepartmentController;
+use App\Http\Controllers\OpenAi\GptChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +22,6 @@ Route::get('/', function () {
 
 Route::prefix('/')->middleware([])->group(function(){
     Route::get('/departments', [DepartmentController::class, 'view']);
+    Route::get('/staffs', [UserController::class, 'view']);
+    Route::get('/chat-bot', [GptChatController::class, 'chatBot']);
 });

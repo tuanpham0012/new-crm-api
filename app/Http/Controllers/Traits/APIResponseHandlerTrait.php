@@ -29,12 +29,12 @@ trait APIResponseHandlerTrait
         return $this->transformer;
     }
 
-    protected function successResponse($data, $message='', $code = 200)
+    protected function successResponse($data, $message = '', $code = 200)
     {
         if (isset($data['data']) && $data['data'] == null) {
             $message = 'Không có dữ liệu tìm kiếm.';
         }
-        if(!is_array($data)){
+        if (!is_array($data)) {
             $data = [
                 'data' => $data
             ];
@@ -63,7 +63,7 @@ trait APIResponseHandlerTrait
             'success' => false,
             'errors' => $errors
         ];
-        if(count($appendData) > 0){
+        if (count($appendData) > 0) {
             $data = array_merge($data, $appendData);
         }
         return response()->json($data, $code);
@@ -202,10 +202,10 @@ trait APIResponseHandlerTrait
         if (array_key_exists('datas', $options) && !empty($options['datas'])) {
             $entry['data']['permission'] = $options['datas']['permissions'];
             $entry['data']['menus'] = $options['datas']['menus'];
-            if(array_key_exists('checkin_time', $options['datas'])) {
+            if (array_key_exists('checkin_time', $options['datas'])) {
                 $entry['data']['checkin_time'] = $options['datas']['checkin_time'];
-                $entry['data']['checkout_time'] =$options['datas']['checkout_time'];
-                $entry['data']['close_time'] =$options['datas']['close_time'];
+                $entry['data']['checkout_time'] = $options['datas']['checkout_time'];
+                $entry['data']['close_time'] = $options['datas']['close_time'];
             }
         }
         if (array_key_exists('appendData', $options) && !empty($options['appendData'])) {
@@ -230,7 +230,7 @@ trait APIResponseHandlerTrait
             $entry['data']['menus'] = $options['datas']['menus'];
         }
 
-        if(array_key_exists('message', $options) && $options['message'] !== null){
+        if (array_key_exists('message', $options) && $options['message'] !== null) {
             $entry = array_merge($entry, [
                 'message' => $options['message'],
             ]);
@@ -241,11 +241,23 @@ trait APIResponseHandlerTrait
         return $this->successResponse($entry, $code);
     }
 
-    //    public function responseAll($data, $code = 200)
-    //    {
-    //        $data = $this->transformData($data);
-    //
-    //        return $this->successResponse($data, $code);
-    //    }
+    public function jsonReponse($data, $code = 200, $appendData = [],$options = [])
+    {
+        // dd(class_basename($data));
 
+        switch (class_basename($data)) {
+            case 'LengthAwarePaginator':
+                return $this->responsePaginatedCollection($data, $code, $appendData, $options);
+            case 'Collection':
+                return $this->responseCollection($data, $code, $appendData, ['paginate' => false, ...$options]);
+            default:
+                return $this->successResponse($data, $code);
+        }
+        // if (class_basename($data) == 'LengthAwarePaginator') {
+        //     return $this->responsePaginatedCollection($data, $code, $appendData, $options);
+        // } elseif (class_basename($data) == 'Collection') {
+        //     return $this->responseCollection($data, $code, $appendData, ['paginate' => false, ...$options]);
+        // }
+        // return $this->successResponse($data, $code);
+    }
 }

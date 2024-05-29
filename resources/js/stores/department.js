@@ -29,12 +29,8 @@ export const useDepartmentStore = defineStore("departmentStore", {
         toggleModal(state) {
             this.showModal = state;
         },
-        getData(page = 1, per_page = 30, search) {
-            getList(url(), {
-                    page: page,
-                    per_page: per_page,
-                    ...search,
-                }, {
+        getData(params = {}) {
+            getList(url(), params, {
                     'portal-id': 1
                 }).then((res) => {
                     console.log(res.data);

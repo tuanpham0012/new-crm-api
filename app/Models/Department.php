@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Department extends BaseModel
 {
-    use NodeTrait;
+    use NodeTrait, SoftDeletes;
     protected $table = 'departments';
 
     protected $fillable = [
@@ -23,6 +24,37 @@ class Department extends BaseModel
         '_rgt',
         'parent_id'
     ];
+
+    /**
+     * [
+     *   field1,
+     *   field2
+     * ]
+     *
+     * @var string[]
+     */
+    protected $searchables = [
+        'code' => 'code',
+        'name' => 'name'
+    ];
+
+    /**
+     * [
+     *    columnKey => fieldName
+     * ]
+     *
+     * @var string[]
+     */
+    protected $orderables = [];
+
+    /**
+     * [
+     *    columnKey => filterFunction
+     * ]
+     *
+     * @var string[]
+     */
+    protected $filterables = [];
 
     /**
      * Get the children that owns the Department
@@ -43,7 +75,7 @@ class Department extends BaseModel
         return $this->hasMany(Department::class, 'parent_id');
     }
 
-    public function getData(){
+    public function makeNewQuery(){
         return $this->query()->with(['parent', 'children'])->withDepth()->orderBy('_lft', 'asc');
     }
 }

@@ -1,32 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Traits;
 
 use Illuminate\Support\Str;
-use Wildside\Userstamps\Userstamps;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Contracts\Database\Query\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class BaseModel extends Model
+trait TableTrait
 {
-    public function findUuid($uuid)
-    {
-        return $this->where('uuid', $uuid)->first();
-    }
-
-    public function updateForUuid($uuid, $data)
-    {
-        return $this->where('uuid', $uuid)->update($data);
-    }
-
-    /**
+/**
      * @var integer
      */
-    protected $perPage = 10;
+    // protected $perPage = 10;
 
     /**
      * @var string[]

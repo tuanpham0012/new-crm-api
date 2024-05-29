@@ -17,7 +17,7 @@
                                 id="parent_id"
                                 v-model="department.parent_id"
                             >
-                                <option v-for="(item, index) in departments" :key="index" :value="item.id" :selected="item.code == 'ROOT'" :class="'ps-' + ((item.depth) * 2)"><span v-for="(index) in item.depth">.</span>{{ item.name }}</option>
+                                <option v-for="(item, index) in departments" :key="index" :value="item.id" :selected="item.code == 'ROOT'" :class="'ps-' + ((item.depth) * 2)"><span v-for="(index) in item.depth"> - </span>{{ item.name }}</option>
                             </select>
                         </div>
                     </div>

@@ -3,9 +3,64 @@
         <div class="col-md-12">
             <div class="card">
                 <div
-                    class="card-header d-flex justify-content-end align-items-center flex-wrap gap-3"
+                    class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3"
                 >
-                    <button class="btn btn-sm btn-primary" @click="toggleShowModal()">
+                    <div class="d-flex">
+                        <div class="d-flex align-items-center w-auto me-2">
+                            <div class="w-75px me-1">
+                                <label for="customerCode" class="col-form-label"
+                                    >Tìm kiếm</label
+                                >
+                            </div>
+                            <div class="w-100px ms-1">
+                                <input
+                                    type="text"
+                                    class="form-control mb-lg-0 p-2"
+                                    id="customerCode"
+                                    placeholder="Nhập tên, email, sdt.."
+                                    v-model="query.search"
+                                />
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center w-auto me-2">
+                            <select
+                                class="form-select"
+                                v-model="query.filters[0].data"
+                            >
+                                <option selected :value="null">
+                                    Chọn trạng thái
+                                </option>
+                                <option
+                                    v-for="(item, index) in props.statuses"
+                                    :key="index"
+                                    :value="index"
+                                >
+                                    {{ item }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center w-auto me-2">
+                            <select
+                                class="form-select"
+                                v-model="query.filters[1].data"
+                            >
+                                <option selected :value="null">
+                                    Chọn phòng ban
+                                </option>
+                                <option
+                                    v-for="(item, index) in departments"
+                                    :key="index"
+                                    :value="item.id"
+                                >
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <button
+                        class="btn btn-sm btn-primary"
+                        @click="toggleShowModal()"
+                    >
                         <i class="feather icon-plus"></i>
                         Thêm
                     </button>
@@ -15,111 +70,184 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
                                 <thead>
-                                      <tr>
+                                    <tr>
                                         <th class="text-center">#</th>
                                         <th>Mã</th>
-                                        <th>Tên phòng ban</th>
+                                        <th>Email</th>
+                                        <th>Tên</th>
+                                        <th>Phòng ban</th>
+                                        <th>Điện thoại</th>
+                                        <th>Giới tính</th>
+                                        <th>Trạng thái</th>
                                         <th>Ghi chú</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                        v-for="(item, index) in departments"
+                                        v-for="(item, index) in users"
                                         :key="index"
                                         :class="{
-                                            'active': item.uuid === uuid,
-                                            'disabled': item.parent_id === null,
+                                            active: item.uuid === uuid,
                                         }"
                                     >
-                                        <td class="w-[5%] min-w-[75px] text-center">
+                                        <td
+                                            class="w-[5%] min-w-[50px] text-center"
+                                        >
                                             {{ index + 1 }}
                                         </td>
-                                        <td class="min-w-[200px] w-[25%]">
-                                            <span v-for="(index) in item.depth">.</span> {{ item.code }}
+                                        <td class="min-w-[150px] w-[20%]">
+                                            {{ item.code }}
                                         </td>
-                                        <td class="min-w-[250px] w-[30%]">{{ item.name }}</td>
-                                        <td class="min-w-[300px] w-[40%]">{{ item.note }}</td>
+                                        <td class="min-w-[200px] w-[25%]">
+                                            {{ item.email }}
+                                        </td>
+                                        <td class="min-w-[200px] w-[25%]">
+                                            {{ item.name }}
+                                        </td>
+                                        <td class="min-w-[200px] w-[25%]">
+                                            {{ item.name }}
+                                        </td>
+                                        <td class="min-w-[150px] w-[20%]">
+                                            {{ item.phone }}
+                                        </td>
+                                        <td class="min-w-[80px] w-[10%]">
+                                            {{ item.gender }}
+                                        </td>
+                                        <td class="min-w-[100px] w-[10%]">
+                                            {{ item.status }}
+                                        </td>
+                                        <td class="min-w-[200px] w-[30%]">
+                                            {{ item.note }}
+                                        </td>
                                         <td class="min-w-[100px] text-center">
-                                            <button class="btn btn-sm btn-icon w-[25px] h-[25px] hover:scale-125" @click="toggleShowModal(item.uuid)">
-                                                 <i class="fas fa-edit text-green-400" aria-hidden="true"></i>
+                                            <button
+                                                class="btn btn-sm btn-icon w-[25px] h-[25px] hover:scale-125"
+                                                @click="
+                                                    toggleShowModal(item.uuid)
+                                                "
+                                            >
+                                                <i
+                                                    class="fas fa-edit text-green-400"
+                                                    aria-hidden="true"
+                                                ></i>
                                             </button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <div v-if="pagination">
+                            <Pagination
+                                :pagination="pagination"
+                                @change-page="changePage"
+                            ></Pagination>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <Suspense>
-        <template #default>
-            <DepartmentModal :id="uuid" v-if="showModal" @close="toggleCloseModal()"></DepartmentModal>
-        </template>
-        <template #fallback>
-            <div class="modal fade show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">ddd</h5>
-                            <!-- <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close" @click="closeModal()"></button> -->
-                        </div>
-                        <div class="modal-body">
-                            ...Loading
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Suspense>
-
+    <UserModal :id="uuid"></UserModal>
 </template>
 <script setup>
-import { ref, computed, onBeforeMount, defineAsyncComponent } from "vue";
-// import DepartmentModal from "./DepartmentModal.vue";
+import { ref, computed, onBeforeMount, reactive, watch } from "vue";
+import { useUserStore } from "@store/user.js";
 import { useDepartmentStore } from "@store/department.js";
-import loading from "@component/loadings/BaseLoading.vue";
-const departmentStore = useDepartmentStore();
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import debounce from "lodash.debounce";
+import UserModal from "./UserModal.vue";
 
-const DepartmentModal = defineAsyncComponent(() =>
-  import('./DepartmentModal.vue')
-);
-
+const props = defineProps({
+    genders: {
+        type: Array,
+        default: [],
+    },
+    statuses: {
+        type: Array,
+        default: [],
+    },
+});
 const uuid = ref(null);
+
+const query = reactive({
+    search: "",
+    filters: [
+        {
+            key: "status",
+            data: null,
+        },
+        {
+            key: "department",
+            data: null,
+        },
+    ],
+    orders: [],
+    per_page: 30,
+    page: 1,
+});
+
+const userStore = useUserStore();
+const departmentStore = useDepartmentStore();
+
+const users = computed(() => {
+    return userStore.$state.users.data ?? [];
+});
 
 const departments = computed(() => {
     return departmentStore.$state.departments.data ?? [];
 });
 
-const showModal = computed(() => {
-    return departmentStore.$state.showModal ?? false;
+const pagination = computed(() => {
+    return userStore.$state.users.meta
+        ? userStore.$state.users.meta.pagination
+        : null;
 });
+
+const showModal = computed(() => {
+    return userStore.$state.showModal ?? false;
+});
+
+watch(
+    () => query.search,
+    debounce((newValue, oldValue) => {
+        getData();
+    }, 500)
+);
+
+watch(
+    () => query.filters,
+    (newValue, oldValue) => {
+        getData();
+    },
+    { deep: true }
+);
 
 const toggleShowModal = (id = null) => {
     uuid.value = id;
-    departmentStore.toggleModal(true)
-}
+    userStore.toggleModal(true);
+};
 
 const toggleCloseModal = () => {
     uuid.value = null;
     getData();
-    departmentStore.toggleModal(false)
-}
+    userStore.toggleModal(false);
+};
 
-const getData = () => {
-    departmentStore.getData();
+const getData = async () => {
+    await userStore.getData(query);
+};
+
+const changePage = (value) => {
+    query.page = value.current_page;
+    query.per_page = value.per_page;
+    getData();
 };
 
 onBeforeMount(() => {
     getData();
+    departmentStore.getData();
 });
 
-const department = ref(null);
 </script>
 <style lang=""></style>

@@ -5,3 +5,15 @@ export const printfValueArray = (arr) => {
     }
     return result
 }
+
+export const randomPassword = (length = 8) => {
+    var c = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    var n = charset.length;
+    var punctuation = "!@#$%&"
+    var retVal = c.charAt(Math.floor(Math.random() * c.length))
+    for (var i = 0; i < length-2; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * charset.length))
+    }
+    return retVal + punctuation.charAt(Math.floor(Math.random() * punctuation.length))
+}

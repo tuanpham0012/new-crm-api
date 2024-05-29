@@ -20,15 +20,16 @@ class DepartmentController extends Controller
 
     public function view():mixed
     {
-        return view('pages.department', ['page' => 'Bộ phận']);
+        return view('pages.department', ['page' => 'Phòng ban']);
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $entries = $this->departmentModel->getData()->get();
-        return $this->responseCollection($entries, 200, [], ['paginate' => false]);
+        $entries = $this->departmentModel->data();
+        // $entries = $this->departmentModel->getData()->get();
+        return $this->jsonReponse($entries, 200, [], ['paginate' => false]);
     }
 
     /**

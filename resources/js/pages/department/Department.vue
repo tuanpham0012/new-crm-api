@@ -36,7 +36,7 @@
                                             {{ index + 1 }}
                                         </td>
                                         <td class="min-w-[200px] w-[25%]">
-                                            <span v-for="(index) in item.depth">.</span> {{ item.code }}
+                                            <span v-for="(index) in item.depth">-</span> {{ item.code }}
                                         </td>
                                         <td class="min-w-[250px] w-[30%]">{{ item.name }}</td>
                                         <td class="min-w-[300px] w-[40%]">{{ item.note }}</td>
@@ -54,42 +54,16 @@
             </div>
         </div>
     </div>
-    <Suspense>
-        <template #default>
-            <DepartmentModal :id="uuid" v-if="showModal" @close="toggleCloseModal()"></DepartmentModal>
-        </template>
-        <template #fallback>
-            <div class="modal fade show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">ddd</h5>
-                            <!-- <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close" @click="closeModal()"></button> -->
-                        </div>
-                        <div class="modal-body">
-                            ...Loading
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </Suspense>
+    <DepartmentModal :id="uuid" v-if="showModal" @close="toggleCloseModal()"></DepartmentModal>
 
 </template>
 <script setup>
 import { ref, computed, onBeforeMount, defineAsyncComponent } from "vue";
-// import DepartmentModal from "./DepartmentModal.vue";
+import DepartmentModal from "./DepartmentModal.vue";
 import { useDepartmentStore } from "@store/department.js";
 import loading from "@component/loadings/BaseLoading.vue";
 const departmentStore = useDepartmentStore();
 import Swal from 'sweetalert2'
-
-const DepartmentModal = defineAsyncComponent(() =>
-  import('./DepartmentModal.vue')
-);
 
 const uuid = ref(null);
 

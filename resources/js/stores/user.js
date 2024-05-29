@@ -3,9 +3,9 @@ import { getList, update, create, destroy, show } from "@/helpers/axiosConfig.js
 import { successMessage } from '@/helpers/toast'
 const url = (id = null) => {
     if (id === null) {
-        return '/api/user';
+        return '/api/staffs';
     }
-    return '/api/user/' + id;
+    return '/api/staffs/' + id;
 };
 
 export const useUserStore = defineStore("userStore", {
@@ -18,7 +18,7 @@ export const useUserStore = defineStore("userStore", {
         },
         user: null,
         errors: null,
-        showModal: false
+        showModal: false,
     }),
 
     getters: {
@@ -29,16 +29,12 @@ export const useUserStore = defineStore("userStore", {
         toggleModal(state) {
             this.showModal = state;
         },
-        getData(page = 1, per_page = 30, search) {
-            getList(url(), {
-                    page: page,
-                    per_page: per_page,
-                    ...search,
-                }, {
+        getData(params = {}) {
+            getList(url(), params, {
                     'portal-id': 1
                 }).then((res) => {
                     console.log(res.data);
-                    this.departments = res.data;
+                    this.users = res.data;
                     this.errors = [];
                 })
                 .catch((err) => {

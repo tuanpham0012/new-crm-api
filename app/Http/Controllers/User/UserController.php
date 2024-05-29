@@ -1,18 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\Api\User;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Staff;
+use App\Models\User;
+use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $userModel;
+    public function __construct(UserTransformer $tranformer, Staff $userModel){
+        $this->setTransformer($tranformer);
+        $this->userModel = $userModel;
+    }
+
+    public function view():mixed
+    {
+        $genders = User::LABEL_GENDER;
+        $statues = User::LABEL_STATUS;
+        return view('pages.user', ['page' => 'Nhân viên', 'genders' => $genders, 'statuses' => $statues]);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $entries = $this->userModel->data();
+        return $this->jsonReponse($entries, 200, [], ['paginate' => false]);
     }
 
     /**
