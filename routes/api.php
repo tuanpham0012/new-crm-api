@@ -26,4 +26,5 @@ Route::prefix('/')->middleware([])->group(function(){
     Route::resource('/staffs', UserController::class);
 
     Route::post('/chat-bot', [GptChatController::class, 'gpt']);
+    Route::post('/translate', [GptChatController::class, 'translateText']);
 });

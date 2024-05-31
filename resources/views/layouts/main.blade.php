@@ -47,8 +47,8 @@
         <loading></loading>
         <!-- [ Pre-loader ] End -->
 
-        @include('layouts.navbar')`
-        @include('layouts.header')
+        {{-- @include('layouts.navbar')`
+        @include('layouts.header') --}}
 
         <!-- [ Main Content ] start -->
         <div class="pcoded-main-container" id="app">

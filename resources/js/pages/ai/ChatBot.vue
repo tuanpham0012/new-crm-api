@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="container-fluid bg-white max-w-[1200px] pt-3">
+    <div class="container-fluid bg-white max-w-[1200px] pt-3 pb-3">
         <div class="chat-body" id="chat-body">
             <div
                 class="message"
@@ -28,12 +28,12 @@
 
             </div>
         </div>
-        <div class="w-[800px] m-auto d-flex items-center mt-3">
+        <div class="w-[800px] m-auto d-flex items-center my-3">
             <textarea
                 v-model="content"
                 class="form-control"
                 rows="4"
-                v-on:keyup.enter="sendData()"
+                v-on:keypress.enter="sendData()"
             >
             </textarea>
             <div>
@@ -111,6 +111,7 @@ onBeforeMount(() => {
         border-radius: 8px;
         margin: 0.875rem;
         max-width: 500px;
+        border: 1px solid #b4b4b4;
     }
 }
 
