@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
             $table->json('contact')->nullable();
             $table->enum('type', CustomerEnum::CUSTOMER_TYPE)->nullable();
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

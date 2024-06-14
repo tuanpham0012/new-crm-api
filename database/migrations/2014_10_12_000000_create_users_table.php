@@ -29,6 +29,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role_id')->default('3');
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->string('note')->nullable();
             $table->rememberToken();
             $table->unsignedBigInteger('created_by')->nullable();

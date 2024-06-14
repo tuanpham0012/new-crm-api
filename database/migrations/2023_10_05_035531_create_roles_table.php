@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->string('name')->comment('Tên nhóm quyền');
             $table->boolean('status')->default(1)->comment('1 - hoạt động, 0 - ngừng hoạt động');
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

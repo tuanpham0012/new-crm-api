@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('image_link')->nullable()->comment('link ảnh sản phẩm');
             $table->string('note')->nullable()->comment('ghi chú');
             $table->boolean('status')->default(1)->comment('1 - sử dụng, 0 - ngưng sd');
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

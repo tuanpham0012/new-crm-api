@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('code')->unique()->comment('mã bộ phận');
             $table->string('name')->comment('tên bộ phận');
             $table->string('note')->nullable()->comment('ghi chú bộ phận');
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1 là sử dụng, 0 là ngừng sd trạng thái bộ phận');
             NestedSet::columns($table);
             $table->unsignedBigInteger('created_by')->nullable();

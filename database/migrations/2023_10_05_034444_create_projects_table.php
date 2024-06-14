@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('status_id')->constrained('system_statuses')->comment('trạng thái dự án');
             $table->string('description')->nullable()->comment('mô tả dự án');
             $table->string('note')->nullable()->comment('ghi chú dự án');
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->date('from_date')->nullable();
             $table->date('to_date')->nullable();
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

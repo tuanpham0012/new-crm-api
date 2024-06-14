@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('status')->default(1)->comment('1 - sử dụng, 0 - ngưng sd');
             $table->string('note')->nullable()->comment('ghi chú');
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

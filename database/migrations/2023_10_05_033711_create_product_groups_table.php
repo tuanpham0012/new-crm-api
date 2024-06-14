@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('note')->nullable()->comment('ghi chú');
             $table->boolean('status')->default(1)->comment('1 - sử dụng, 0 - ngưng sd');
+            $table->unsignedBigInteger('portal_id')->nullable();
             NestedSet::columns($table);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

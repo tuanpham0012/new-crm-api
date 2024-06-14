@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("agency_name")->comment("Tên công ty")->nullable();
             $table->string("agency_address")->comment("Địa chỉ công ty")->nullable();
             $table->integer("phone_number")->comment("Số điện thoại")->nullable();
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->boolean("status")->default(1)->comment("Trạng thái:1- hoạt động và 0 - ngừng hoạt động");
             $table->unsignedBigInteger("created_by")->nullable();
             $table->unsignedBigInteger("updated_by")->nullable();

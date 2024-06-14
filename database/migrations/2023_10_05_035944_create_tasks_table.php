@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('customer_id')->nullable()->comment('Khách hàng liên quan');
             $table->integer('task_status_id');
             $table->integer('project_id')->nullable();
+            $table->unsignedBigInteger('portal_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();

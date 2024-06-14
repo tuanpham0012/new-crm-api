@@ -4,6 +4,7 @@ body {
     // color: #1f1f1f !important;
     line-height: 1.2rem !important;
     font-size: 1rem;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 
@@ -71,20 +72,25 @@ body {
 
 .modal-dialog {
     .modal-header {
-        padding: .5rem 1rem;
+        padding: 1.5rem 1rem .5rem 1rem;
         align-items: center;
-        background-color: var(--bs-primary);
-        border-color: var(--bs-primary);
+        justify-content: center;
+        border: 0;
+        // background-color: var(--bs-primary);
+        // border-color: var(--bs-primary);
         .modal-title {
             font-size: 1.125rem;
-            color: var(--bs-light) !important;
+            font-weight: 600;
+
+            // color: var(--bs-light) !important;
         }
     }
     .modal-content {
-        border-radius: 8px;
+        border-radius: 10px;
     }
     .modal-body {
         min-height: 30vh;
+        background-color: #f8f8f8;
     }
     .modal-footer {
         padding: .5rem 1rem;
@@ -94,6 +100,10 @@ body {
 
 /** input css */
 
+.form-label{
+    font-weight: 550 !important;
+    font-size: 0.875rem;
+}
 .form-control {
     .disabled {
         background-color: #7c7c7d;

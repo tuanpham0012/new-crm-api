@@ -8,6 +8,7 @@ import ChatBot from '@page/ai/ChatBot.vue'
 
 import Loading from "@component/loadings/BaseLoading.vue"
 import Pagination from "@component/pagination/BasePagination.vue"
+import SelectSearch from "@component/input-form/SelectSearch.vue"
 
 /** end register component */
 
@@ -20,6 +21,7 @@ const globalComponent = {
     Loading,
     User,
     Pagination,
-    ChatBot
+    ChatBot,
+    SelectSearch
 }
 export default globalComponent

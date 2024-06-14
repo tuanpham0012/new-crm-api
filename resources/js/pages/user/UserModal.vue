@@ -155,6 +155,50 @@
                         <div class="col-sm-2">
                             <label for="note" class="form-label">Địa chỉ</label>
                         </div>
+                        <div class="row col-sm-12">
+                            <div class="col-sm-4">
+                                <select-search
+                                    :listData="location.cities"
+                                    display="name"
+                                    placeholder="Chọn Thành phố"
+                                    v-model="user.city_id"
+                                ></select-search>
+                            </div>
+                            <div class="col-sm-4">
+                                <select-search
+                                    :listData="location.districts"
+                                    ref="districts"
+                                    display="name"
+                                    :disabled="user.city_id ? false : true"
+                                    placeholder="Chọn Quận/huyện"
+                                    v-model="user.district_id"
+                                ></select-search>
+                            </div>
+                            <div class="col-sm-4">
+                                <select-search
+                                    :listData="location.wards"
+                                    ref="wards"
+                                    display="name"
+                                    :disabled="user.district_id ? false : true"
+                                    placeholder="Chọn Phường/Xã"
+                                    v-model="user.ward_id"
+                                ></select-search>
+                            </div>
+                            <div class="col-sm-12 py-3">
+                            <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                id="code"
+                                placeholder="Nhập địa chỉ"
+                                v-model="user.code"
+                            />
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
                         <div class="col-sm-12">
                             <textarea
                                 type="text"
@@ -181,6 +225,112 @@
                             ></textarea>
                         </div>
                     </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="note"
+                                rows="4"
+                                placeholder="Nhập ghi chú..."
+                                v-model="user.note"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="note"
+                                rows="4"
+                                placeholder="Nhập ghi chú..."
+                                v-model="user.note"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="note"
+                                rows="4"
+                                placeholder="Nhập ghi chú..."
+                                v-model="user.note"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="note"
+                                rows="4"
+                                placeholder="Nhập ghi chú..."
+                                v-model="user.note"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="note"
+                                rows="4"
+                                placeholder="Nhập ghi chú..."
+                                v-model="user.note"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="note"
+                                rows="4"
+                                placeholder="Nhập ghi chú..."
+                                v-model="user.note"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-3">
+                        <div class="col-sm-2">
+                            <label for="note" class="form-label">Ghi chú</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <select-search
+                                    :listData="location.cities"
+                                    display="name"
+                                    placeholder="Chọn Thành phố"
+                                    v-model="user.city_id"
+                                ></select-search>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-sm-6 form-check mb-3 ms-3">
                         <input
                             class="form-check-input"
@@ -219,6 +369,7 @@ import { reactive, computed, onBeforeMount, watch, ref } from "vue";
 import Model from "@component/modals/BaseModal.vue";
 import { useDepartmentStore } from "@store/department.js";
 import { useUserStore } from "@store/user.js";
+import { useLocationStore } from "@store/location.js";
 import { textCode, removeVietnameseTones } from "@/services/utils.js";
 import { randomPassword } from "@/helpers/helpers.js";
 import moment from "moment";
@@ -245,6 +396,7 @@ const emits = defineEmits(["close"]);
 
 const departmentStore = useDepartmentStore();
 const userStore = useUserStore();
+const locationStore = useLocationStore();
 
 const newUser = reactive({
     id: null,
@@ -255,6 +407,9 @@ const newUser = reactive({
     phone: "",
     birthday: moment(),
     address: "",
+    city_id: null,
+    district_id: null,
+    ward_id: null,
     nationality_id: null,
     gender: 0,
     status: 0,
@@ -268,6 +423,9 @@ const newUser = reactive({
     ],
 });
 
+const districts = ref();
+const wards = ref();
+
 const departments = computed(() => {
     return departmentStore.$state.departments.data && user.value.departments
         ? departmentStore.$state.departments.data.filter(
@@ -280,9 +438,40 @@ const user = computed(() => {
     return props.id && userStore.$state.user ? userStore.$state.user : newUser;
 });
 
+const location = computed(() => {
+    return locationStore.$state.locations;
+});
+
 /**
  * function
  */
+
+watch(
+    () => user.value.city_id,
+    (newValue, oldValue) => {
+        locationStore.getDistricts(newValue);
+        if(newValue){
+            setTimeout(function () {
+            districts.value.toggleShow(true);
+        }, 200);
+        }
+
+    }
+);
+
+watch(
+    () => user.value.district_id,
+    (newValue, oldValue) => {
+        locationStore.getWards(newValue);
+        if(newValue){
+            setTimeout(function () {
+            wards.value.toggleShow(true);
+        }, 200);
+        }
+
+    }
+);
+
 const save = () => {
     console.log(user.value);
     if (user.value.uuid) {
@@ -305,6 +494,8 @@ onBeforeMount(async () => {
         await getData(props.id);
     }
     departmentStore.getData({ per_page: 100 });
+    locationStore.getCountries();
+    locationStore.getCities();
 });
 </script>
 <style lang=""></style>

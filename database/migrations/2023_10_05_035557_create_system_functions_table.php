@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('code')->comment('Mã chức năng');
             $table->string('name')->comment('Tên chức năng');
             $table->integer('position')->nullable()->comment('Vị trí thứ chức năng nếu cần.');
+            $table->unsignedBigInteger('portal_id')->nullable();
             NestedSet::columns($table);
             $table->string('function_group')->nullable()->comment('Nhóm chức năng nếu bị trùng tên');
             $table->string('related_array_id')->nullable()->comment('mảng id các chức năng có quan hệ với nhau');
