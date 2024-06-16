@@ -11,9 +11,13 @@
                 }"
                 :focus="index == chats.length - 1"
             >
-                <div class="content">
-                    <p>{{ item.message }}</p>
+                <div class="content" >
+                    <div v-if="item.image">
+                        <img :src="item.image" class="bg-white px-2 py-1" />
+                    </div>
+                    <p v-if="item.message">{{ item.message }}</p>
                 </div>
+
             </div>
             <div class="message chat-model" v-if="loading">
                 <div class = "content">
@@ -28,7 +32,14 @@
 
             </div>
         </div>
+        <div>
+            <img :src="img" class="max-w-20" />
+        </div>
+        <div class="my-3 w-[800px] m-auto">
+            <input class="form-control" type="file" id="formFile" hidden @change="sendImage($event)">
+            </div>
         <div class="w-[800px] m-auto d-flex items-center my-3">
+
             <textarea
                 v-model="content"
                 class="form-control"
@@ -37,9 +48,12 @@
             >
             </textarea>
             <div>
-                <button class="btn btn-success btn-sm mx-2" @click="sendData()">
-                send
-            </button>
+                <label class="btn btn-icon btn-sm m-2 p-0" for="formFile">
+                    <i class="fa fa-film" aria-hidden="true"></i>
+                </label>
+                <button class="btn btn-sm mx-2 btn-outline-success btn-icon" @click="sendData()">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
             </div>
 
         </div>
@@ -56,7 +70,11 @@ const chats = computed(() => {
     return chatBotStore.$state.data;
 });
 
+const img = ref(null)
+
 const content = ref("");
+
+const dataImg = ref(null)
 
 const uuid = computed(() => {
     return chatBotStore.$state.uuid;
@@ -72,19 +90,33 @@ watch( () => chats.value, () => {
         var objDiv = document.getElementById("chat-body");
     objDiv.scrollTop = 9999999999;
     },100)
-
+    content.value = "";
 }, { deep: true});
+
+const sendImage = (event) => {
+    const file = event.target.files[0];
+    const theReader = new FileReader();
+      // Nhớ sử dụng async/await để chờ khi đã convert thành công image sang base64 thì mới bắt đầu gán cho biến newImage
+      // đây là 1 kinh nghiệm của mình khi upload multiple ảnh
+      theReader.onloadend = async () => {
+        img.value = await theReader.result;
+      };
+      theReader.readAsDataURL(file);
+    // img.value = URL.createObjectURL(event.target.files[0]);
+    // console.log(event.target.files[0]);
+}
 
 const getData = async () => {
     await chatBotStore.startChat();
 };
 
 const sendData = async () => {
-    await chatBotStore.sendData(content.value);
+    await chatBotStore.sendData(content.value, img.value);
     content.value = "";
+    img.value = null;
 };
 onBeforeMount(() => {
-    getData();
+    // getData();
 });
 </script>
 <style lang="scss" scoped>
@@ -119,11 +151,16 @@ onBeforeMount(() => {
     width: 100%;
     justify-content: flex-end;
     .content {
-        background-color: #acd7f3;
-        padding: 0.875rem;
+        background-color: #6380c0;
         border-radius: 8px;
         margin: 0.875rem;
         max-width: 500px;
+        p {
+            text-align: end;
+            color: #fff;
+            padding: 0.875rem;
+
+        }
     }
 }
 

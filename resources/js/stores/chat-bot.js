@@ -17,12 +17,21 @@ export const useChatBotStore = defineStore("chatBotStore", {
     },
 
     actions: {
-        sendData(message) {
-            this.pushData(message, 'user')
+        sendData(message, img = null) {
+
             this.loading = true;
-            create(url(), {content: message, uuid: this.uuid, histories: this.data}
+            let type = 'text'
+            if(img){
+                type = 'image'
+            }
+            console.log(type);
+            this.pushData(message, img, 'user', type)
+            create(url(), {content: message, image: img, uuid: this.uuid, histories: this.data, type: type}
                 ).then((res) => {
                     console.log(res.data);
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text = res.data.data.message;
+                    speechSynthesis.speak(msg);
                     this.data.push(res.data.data)
                     this.loading = false;
                 })
@@ -55,10 +64,12 @@ export const useChatBotStore = defineStore("chatBotStore", {
           });
         },
 
-        pushData(message, role = 'user') {
+        pushData(message, image = null, role = 'user', type = 'text') {
             this.data.push({
                 message: message,
-                role: role
+                image: image,
+                role: role,
+                type: type
             })
         }
     },
