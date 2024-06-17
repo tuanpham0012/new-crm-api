@@ -29,9 +29,9 @@ export const useChatBotStore = defineStore("chatBotStore", {
             create(url(), {content: message, image: img, uuid: this.uuid, histories: this.data, type: type}
                 ).then((res) => {
                     console.log(res.data);
-                    var msg = new SpeechSynthesisUtterance();
-                    msg.text = res.data.data.message;
-                    speechSynthesis.speak(msg);
+                    // var msg = new SpeechSynthesisUtterance();
+                    // msg.text = res.data.data.message;
+                    // speechSynthesis.speak(msg);
                     this.data.push(res.data.data)
                     this.loading = false;
                 })

@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="container-fluid bg-white max-w-[1200px] pt-3 pb-3">
+    <div class="container-fluid w-[800px] m-auto bg-white max-w-[1200px] pt-3 pb-3">
         <div class="chat-body" id="chat-body">
             <div
                 class="message"
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div>
-            <img :src="img" class="max-w-20" />
+            <img :src="img" class="max-h-60" />
         </div>
         <div class="my-3 w-[800px] m-auto">
             <input class="form-control" type="file" id="formFile" hidden @change="sendImage($event)">
