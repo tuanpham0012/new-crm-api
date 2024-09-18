@@ -12,7 +12,7 @@ const http = axios.create(axiosDefaults)
 http.interceptors.request.use(
     (response) => {
         // Do something before request is sent
-        console.log('send Data:', response);
+        // console.log('send Data:', response);
         if(response.headers.loading){
             document.body.classList.add("loading");
         }else{
@@ -28,11 +28,11 @@ http.interceptors.request.use(
 )
 
 http.interceptors.response.use(response => {
-    console.log("success: ", response);
+    // console.log("success: ", response);
     document.body.classList.remove("loading");
     return response;
 }, error => {
-    console.log("error:", error);
+    // console.log("error:", error);
     document.body.classList.remove("loading");
     return Promise.reject(error);
 });

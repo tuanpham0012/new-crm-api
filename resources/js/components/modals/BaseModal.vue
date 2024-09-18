@@ -1,45 +1,51 @@
 <script setup>
-import { } from 'vue'
+import {} from "vue";
 /** declare variable */
 const props = defineProps({
     title: {
         type: [String, Number],
-        default: ''
+        default: "",
     },
     modalSize: {
         type: String,
-        default: ''
-    }
-})
-const emits = defineEmits(['close']);
+        default: "",
+    },
+});
+const emits = defineEmits(["close"]);
 /** declare function */
 const closeModal = () => {
-    emits('close');
-}
+    emits("close");
+};
 </script>
 
 <template>
-    <!-- <Suspense>
-        <template #default> -->
-            <div class="modal fade show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" :class="modalSize">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ props.title }}</h5>
-                            <!-- <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close" @click="closeModal()"></button> -->
-                        </div>
-                        <div class="modal-body">
-                            <slot name="body"></slot>
-                        </div>
-                        <div class="modal-footer">
-                            <slot name="footer"></slot>
-                        </div>
-                    </div>
+    <div
+        class="modal fade show"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+    >
+        <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            :class="modalSize"
+        >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ props.title }}</h5>
+                    <!-- <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close" @click="closeModal()"></button> -->
+                </div>
+                <div class="modal-body">
+                    <slot name="body"></slot>
+                </div>
+                <div class="modal-footer">
+                    <slot name="footer"></slot>
                 </div>
             </div>
-        <!-- </template>
-    </Suspense> -->
+        </div>
+    </div>
 </template>
 
 <style scoped lang="scss">
@@ -55,7 +61,9 @@ const closeModal = () => {
     --bs-modal-border-width: var(--bs-border-width);
     --bs-modal-border-radius: var(--bs-border-radius-lg);
     --bs-modal-box-shadow: var(--bs-box-shadow-sm);
-    --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
+    --bs-modal-inner-border-radius: calc(
+        var(--bs-border-radius-lg) - (var(--bs-border-width))
+    );
     --bs-modal-header-padding-x: 1rem;
     --bs-modal-header-padding-y: 1rem;
     --bs-modal-header-padding: 1rem 1rem;
@@ -69,21 +77,21 @@ const closeModal = () => {
     background-color: var(--bs-modal-color);
 }
 
-.loading-spinner{
-  width:30px;
-  height:30px;
-  border:2px solid indigo;
-  border-radius:50%;
-  border-top-color:#0001;
-  display:inline-block;
-  animation:loadingspinner .7s linear infinite;
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+    border: 2px solid indigo;
+    border-radius: 50%;
+    border-top-color: #0001;
+    display: inline-block;
+    animation: loadingspinner 0.7s linear infinite;
 }
-@keyframes loadingspinner{
-  0%{
-    transform:rotate(0deg)
-  }
-  100%{
-    transform:rotate(360deg)
-  }
+@keyframes loadingspinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>

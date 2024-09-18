@@ -14,7 +14,7 @@ class NoTransformer extends TransformerAbstract
     protected array $defaultIncludes = [
         //
     ];
-    
+
     /**
      * List of resources possible to include
      *
@@ -23,16 +23,14 @@ class NoTransformer extends TransformerAbstract
     protected array $availableIncludes = [
         //
     ];
-    
+
     /**
      * A Fractal transformer.
      *
      * @return array
      */
-    public function transform()
+    public function transform($data)
     {
-        return [
-            //
-        ];
+        return $data;
     }
 }

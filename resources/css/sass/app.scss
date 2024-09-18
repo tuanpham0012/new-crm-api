@@ -1,4 +1,4 @@
-@import "reset-css.scss";
+// @import "reset-css.scss";
 body {
     // font-family: "Helvetica Neue", Helvetica, Arial, 文泉驛正黑, "WenQuanYi Zen Hei", "Hiragino Sans GB", "儷黑 Pro", "LiHei Pro", "Heiti TC", 微軟正黑體, "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif !important;
     // color: #1f1f1f !important;
@@ -15,10 +15,9 @@ body {
 
 .table {
     thead th {
-        padding: .4rem .6rem;
         vertical-align: middle;
-        background-color: var(--bs-primary) !important;
-        color: var(--bs-light) !important;
+        // background-color: var(--bs-primary) !important;
+        // color: var(--bs-light) !important;
         &.row-icon {
             padding: 0;
             margin: 0;
@@ -49,6 +48,51 @@ body {
     }
 }
 
+.table-scroll {
+    overflow: overlay !important;
+    border-radius: 6px !important;
+    table {
+        thead {
+            tr {
+                position: sticky;
+                top: -1px;
+                z-index: 10;
+                height: 31px;
+            }
+        }
+
+        // tbody {
+        //     .active {
+        //         background-color: var(--bs-primary-light);
+        //         color: var(--bs-primary-active) !important;
+        //     }
+        //     td {
+        //         padding: 0.175rem 0.875rem !important;
+        //         color: var(--bs-black) !important;
+        //         height: 30px;
+        //     }
+        // }
+
+    }
+    &::-webkit-scrollbar {
+        width: 7px !important;
+        height: 7px !important;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: var(--bs-white) !important;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(189, 189, 189) !important;
+        border-radius: 10px;
+        &:hover{
+            background-color: rgb(139, 139, 139) !important;
+        }
+    }
+}
+
+// end table css
+
 
 /* button css*/
 
@@ -72,7 +116,7 @@ body {
 
 .modal-dialog {
     .modal-header {
-        padding: 1.5rem 1rem .5rem 1rem;
+        padding: 1rem 1rem .785rem 1rem;
         align-items: center;
         justify-content: center;
         border: 0;
@@ -81,7 +125,6 @@ body {
         .modal-title {
             font-size: 1.125rem;
             font-weight: 600;
-
             // color: var(--bs-light) !important;
         }
     }
@@ -90,7 +133,7 @@ body {
     }
     .modal-body {
         min-height: 30vh;
-        background-color: #f8f8f8;
+        background-color: #eef2f4;
     }
     .modal-footer {
         padding: .5rem 1rem;
@@ -103,6 +146,7 @@ body {
 .form-label{
     font-weight: 550 !important;
     font-size: 0.875rem;
+    color: #111;
 }
 .form-control {
     .disabled {
@@ -192,3 +236,5 @@ body {
 }
 
 /* end product css*/
+
+

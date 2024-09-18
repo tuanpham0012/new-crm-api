@@ -5,6 +5,9 @@ import { createPinia } from 'pinia';
 import globalComponent from './helpers/import-global-components.js';
 // import { createI18n } from 'vue-i18n'
 
+import { Cropper } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css';
+
 
 const app = createApp({})
 const pinia = createPinia();
@@ -35,4 +38,5 @@ app.directive('click-outside', {
 });
 // app.use(i18n)
 app.use(pinia)
+app.component('Cropper', Cropper);
 app.mount('#app')

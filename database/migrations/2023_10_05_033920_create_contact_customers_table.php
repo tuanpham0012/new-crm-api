@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_customers', function (Blueprint $table) {
-            $table->id();
-            $table->uuid('uuid')->unique();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('customer_id')->constrained();
-            $table->string('position')->nullable();
-            $table->unsignedBigInteger('portal_id')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
-            $table->unsignedBigInteger('deleted_by')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
-        });
+        // Schema::create('contact_customers', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->uuid('uuid')->unique();
+        //     $table->foreignId('user_id')->constrained();
+        //     $table->foreignId('customer_id')->constrained();
+        //     $table->string('position')->nullable();
+        //     $table->unsignedBigInteger('portal_id')->nullable();
+        //     $table->unsignedBigInteger('created_by')->nullable();
+        //     $table->unsignedBigInteger('updated_by')->nullable();
+        //     $table->unsignedBigInteger('deleted_by')->nullable();
+        //     $table->softDeletes();
+        //     $table->timestamps();
+        // });
     }
 
     /**

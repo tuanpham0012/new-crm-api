@@ -36,6 +36,12 @@ class User extends Authenticatable
         self::STATUS_BLOCKED,
     ];
 
+    const IMAGES = [
+        'https://cdn-media.sforum.vn/storage/app/media/wp-content/uploads/2018/11/2-10.png',
+        'https://inkythuatso.com/uploads/thumbnails/800/2023/03/1-hinh-anh-ngay-moi-hanh-phuc-sieu-cute-inkythuatso-09-13-35-50.jpg',
+        'https://inkythuatso.com/uploads/thumbnails/800/2023/03/5-hinh-anh-ngay-moi-hanh-phuc-sieu-cute-inkythuatso-09-13-36-23.jpg'
+    ];
+
     const LABEL_STATUS = [
         self::STATUS_ACTIVE => 'Hoạt động',
         self::STATUS_BLOCKED => 'Đã khóa',

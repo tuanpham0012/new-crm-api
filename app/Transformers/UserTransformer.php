@@ -5,6 +5,8 @@ namespace App\Transformers;
 use App\Models\User;
 use League\Fractal\TransformerAbstract;
 
+use function App\Helper\get_full_address;
+
 class UserTransformer extends TransformerAbstract
 {
     /**
@@ -32,7 +34,7 @@ class UserTransformer extends TransformerAbstract
      */
     public function transform($user)
     {
-        return [
+        $data = [
             'id' => $user->id,
             'uuid' => $user->uuid,
             'code' => $user->code,
@@ -50,6 +52,23 @@ class UserTransformer extends TransformerAbstract
             'password' => $user->password,
             'role_id' => $user->role_id,
             'note' => $user->note,
+            'full_address' => get_full_address($user),
+            'text_gender' => User::LABEL_GENDER[$user->gender],
+            'text_status' => User::LABEL_STATUS[$user->status],
+            'banksss' => $user->banks,
         ];
+
+        if($user->relationLoaded('departments')){
+            $data = array_merge($data, [
+                'departments' => fractal($user->departments, new DepartmentTranformer())->toArray()
+            ]);
+        }
+
+        if($user->relationLoaded('banks')){
+            $data = array_merge($data, [
+                'banks' => fractal($user->banks, new BankAccountTransformer())->toArray()
+            ]);
+        }
+        return $data;
     }
 }

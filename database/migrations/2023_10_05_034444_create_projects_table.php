@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('city_id')->nullable()->constrained()->comment('id tỉnh/thành phố');
             $table->foreignId('project_type_id')->constrained()->comment('phân loại dự án');
             $table->foreignId('customer_id')->constrained()->comment('phân loại dự án');
-            $table->foreignId('status_id')->constrained('system_statuses')->comment('trạng thái dự án');
+            $table->tinyInteger('status')->comment('trạng thái dự án');
             $table->string('description')->nullable()->comment('mô tả dự án');
             $table->string('note')->nullable()->comment('ghi chú dự án');
             $table->unsignedBigInteger('portal_id')->nullable();

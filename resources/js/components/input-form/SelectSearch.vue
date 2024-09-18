@@ -125,7 +125,7 @@ watch(() => props.modelValue, (newValue, oldValue) => {
 
 watch(searchData, debounce((newValue, oldValue) => {
     emits('search-data', newValue)
-}, 1))
+}, 50))
 
 watch(dataSelect, (newValue, oldValue) => {
     emits("update:modelValue", newValue == null ? null : newValue[props.keyValue]);
@@ -232,7 +232,7 @@ onMounted(() => {
     cursor: pointer;
     padding: 0.875rem 1rem;
     width: 100%;
-    max-height: 38px;
+    max-height: 37.5px;
     border: 1px solid var(--bs-gray-300);
     border-radius: 0.4rem;
     margin-bottom: 1px;

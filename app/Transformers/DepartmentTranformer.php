@@ -34,6 +34,7 @@ class DepartmentTranformer extends TransformerAbstract
     {
         return [
             'id' => $entry->id,
+            'department_id' => $entry->id,
             'uuid' => $entry->uuid,
             'code' => $entry->code,
             'name' => $entry->name,

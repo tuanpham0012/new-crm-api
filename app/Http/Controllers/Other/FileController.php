@@ -1,27 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Other;
 
 use App\Models\File;
-use App\Http\Requests\StoreFileRequest;
-use App\Http\Requests\UpdateFileRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\FileRequest\StoreFileRequest;
+use App\Http\Requests\FileRequest\UpdateFileRequest;
 
 class FileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $model;
+    public function __construct(File $model)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $this->model = $model;
     }
 
     /**
@@ -29,21 +20,14 @@ class FileController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
-        //
+        $data = $this->model->uploadFile($request->file('file'), $request->get('file_name'));
+        return $this->successResponse($data);
     }
 
     /**
      * Display the specified resource.
      */
     public function show(File $file)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(File $file)
     {
         //
     }

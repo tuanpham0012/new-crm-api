@@ -92,8 +92,8 @@ strong {
 }
 
 .page-header h5 {
-    margin-bottom: 5px;
-    font-weight: 400;
+    font-weight: 550;
+    font-size: 1.5rem;
 }
 
 .page-header .page-header-title+.breadcrumb {
@@ -7126,14 +7126,15 @@ select.form-control-lg:not([size]):not([multiple]) {
 .table th {
     border-top: 1px solid #e2e5e8;
     white-space: nowrap;
-    padding: 1.05rem 0.75rem;
+    /* padding: 1.05rem 0.75rem; */
 }
 
 .table thead th {
     border-bottom: 1px solid #e2e5e8;
-    font-size: 13px;
+    font-size: 15px;
     color: #111;
-    background: #eff3f6;
+    background: #f9fafb;
+    padding: 0.6rem;
     /* text-transform: uppercase; */
 }
 
@@ -7146,7 +7147,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .table.dataTable[class*="table-"] thead th {
-    background: #eff3f6;
+    background: #f9fafb;
 }
 
 

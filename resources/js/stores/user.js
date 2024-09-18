@@ -21,10 +21,6 @@ export const useUserStore = defineStore("userStore", {
         showModal: false,
     }),
 
-    getters: {
-        getParentDepartmentData: () => this.departments.filter((item) => (item.parent_id === null)),
-    },
-
     actions: {
         toggleModal(state) {
             this.showModal = state;
@@ -42,13 +38,15 @@ export const useUserStore = defineStore("userStore", {
                 });
         },
         showData(id) {
-            this.department = null;
+            this.user = null;
             show(url(id)).then((res) => {
                     console.log(res.data);
-                    this.department = res.data.data;
+                    this.user = res.data.data;
+                    console.log(this.user);
                     this.errors = [];
                 })
                 .catch((err) => {
+                    console.log(err);
                     this.errors = err.response.data.errors;
                 });
         },
@@ -56,10 +54,8 @@ export const useUserStore = defineStore("userStore", {
             this.errors = null
             create(url(), data)
                 .then((res) => {
-                    // this.pushData(res.data.data);
                     successMessage(res.data.message)
-                    this.getData()
-
+                    // this.getData()
                     this.toggleModal(false);
                 }).catch((err) => {
                     console.log(err);
@@ -73,7 +69,7 @@ export const useUserStore = defineStore("userStore", {
             update(url(id), data)
                 .then((res) => {
                     successMessage(res.data.message)
-                    this.getData()
+                    // this.getData()
                     this.toggleModal(false);
                 }).catch(err => {
                     console.log(err);

@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Customer\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\OpenAi\GptChatController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\Location\LocationController;
+use App\Http\Controllers\Other\BankController;
+use App\Http\Controllers\Other\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +28,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('/')->middleware([])->group(function(){
     Route::resource('/departments', DepartmentController::class);
     Route::resource('/staffs', UserController::class);
+    Route::resource('/banks', BankController::class);
+    Route::resource('/customers', CustomerController::class);
+
+    Route::post('/file/upload', [FileController::class, 'store']);
 
     Route::get('/location/countries', [LocationController::class, 'getCountries']);
     Route::get('/location/cities', [LocationController::class, 'getCities']);

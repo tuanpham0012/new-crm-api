@@ -15,9 +15,12 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             CitySeeder::class,
             DistrictSeeder::class,
-            WardSeeder::class,
             DepartmentSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            BankSeeder::class,
+            WardSeeder::class,
+            CustomerSourceSeeder::class,
+            CustomerSeeder::class,
         ]);
     }
 }

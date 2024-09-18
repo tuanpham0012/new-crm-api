@@ -3,5 +3,4 @@
 return [
 
     'departments' => 'Phòng ban',
-
 ];

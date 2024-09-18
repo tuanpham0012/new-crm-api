@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\Staff;
 use App\Models\User;
-use App\Transformers\UserTransformer;
+use App\Models\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest\StoreUserRequest;
+use App\Transformers\UserTransformer;
 
 class UserController extends Controller
 {
     protected $userModel;
-    public function __construct(UserTransformer $tranformer, Staff $userModel){
+    public function __construct(UserTransformer $tranformer, Staff $userModel)
+    {
         $this->setTransformer($tranformer);
         $this->userModel = $userModel;
     }
 
-    public function view():mixed
+    public function view(): mixed
     {
         $genders = User::LABEL_GENDER;
         $statues = User::LABEL_STATUS;
@@ -32,43 +35,57 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            $entry = $this->userModel->create($data);
+            $entry->updateDepartments($data['departments']['data']);
+            $entry->updateBanks($data['banks']['data']);
+            DB::commit();
+            return $this->responseOne($entry, 'Thêm mới thành công!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Display a listing of the resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $entry = $this->userModel->findUuid($id, ['departments', 'banks']);
+        if ($entry) {
+            return $this->responseOne($entry);
+        }
+        return $this->errorResponse('Not fount', 404);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUserRequest $request, string $id)
     {
-        //
+        $entry = $this->userModel->findUuid($id);
+        if (!$entry) {
+            return $this->errorResponse('Not fount', 404);
+        }
+        $data = $request->all();
+        DB::beginTransaction();
+        try {
+            $entry->update($data);
+            $entry->updateDepartments($data['departments']['data']);
+            $entry->updateBanks($data['banks']['data']);
+            DB::commit();
+            return $this->responseOne($entry, 'Cập nhật thành công!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->errorResponse($th->getMessage());
+        }
     }
 
     /**

@@ -1,7 +1,7 @@
 <template lang="">
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card pb-1">
                 <div
                     class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3"
                 >
@@ -57,26 +57,21 @@
                             </select>
                         </div>
                     </div>
-                    <button
-                        class="btn btn-sm btn-primary"
-                        @click="toggleShowModal()"
-                    >
+                    <button class="btn btn-primary" @click="toggleShowModal()">
                         <i class="feather icon-plus"></i>
-                        Thêm
+                        Thêm mới
                     </button>
                 </div>
                 <div class="col-12">
                     <div class="card-body table-border-style">
-                        <div class="table-responsive">
+                        <div class="table-responsive table-scroll h-[65vh]">
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th>Mã</th>
-                                        <th>Email</th>
+                                        <th>Hình ảnh</th>
                                         <th>Tên</th>
                                         <th>Phòng ban</th>
-                                        <th>Điện thoại</th>
                                         <th>Giới tính</th>
                                         <th>Trạng thái</th>
                                         <th>Ghi chú</th>
@@ -96,26 +91,39 @@
                                         >
                                             {{ index + 1 }}
                                         </td>
-                                        <td class="min-w-[150px] w-[20%]">
-                                            {{ item.code }}
-                                        </td>
                                         <td class="min-w-[200px] w-[25%]">
                                             {{ item.email }}
                                         </td>
                                         <td class="min-w-[200px] w-[25%]">
-                                            {{ item.name }}
+                                            <p
+                                                class="text-[16px] font-semibold"
+                                            >
+                                                {{ item.name }} -
+                                                {{ item.code }}
+                                            </p>
+                                            <p>
+                                                <i class="far fa-envelope"></i>
+                                                {{ item.email }}
+                                            </p>
+                                            <p>
+                                                <i
+                                                    class="fas fa-map-marker"
+                                                ></i>
+                                                {{ item.full_address }}
+                                            </p>
+                                            <p>
+                                                <i class="fas fa-phone-alt"></i>
+                                                {{ item.phone }}
+                                            </p>
                                         </td>
                                         <td class="min-w-[200px] w-[25%]">
                                             {{ item.name }}
                                         </td>
-                                        <td class="min-w-[150px] w-[20%]">
-                                            {{ item.phone }}
-                                        </td>
                                         <td class="min-w-[80px] w-[10%]">
-                                            {{ item.gender }}
+                                            {{ item.text_gender }}
                                         </td>
                                         <td class="min-w-[100px] w-[10%]">
-                                            {{ item.status }}
+                                            {{ item.text_status }}
                                         </td>
                                         <td class="min-w-[200px] w-[30%]">
                                             {{ item.note }}
@@ -148,7 +156,13 @@
             </div>
         </div>
     </div>
-    <UserModal :id="uuid"></UserModal>
+    <UserModal
+        :id="uuid"
+        :genders="genders"
+        :statuses="statuses"
+        @close="toggleCloseModal()"
+        v-if="showModel"
+    ></UserModal>
 </template>
 <script setup>
 import { ref, computed, onBeforeMount, reactive, watch } from "vue";
@@ -204,8 +218,8 @@ const pagination = computed(() => {
         : null;
 });
 
-const showModal = computed(() => {
-    return userStore.$state.showModal ?? false;
+const showModel = computed(() => {
+    return userStore.$state.showModal ?? true;
 });
 
 watch(
@@ -248,6 +262,9 @@ onBeforeMount(() => {
     getData();
     departmentStore.getData();
 });
-
 </script>
-<style lang=""></style>
+<style lang="scss" scoped>
+.table-responsive {
+    height: calc(100vh - 355px);
+}
+</style>

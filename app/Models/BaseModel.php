@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BaseModel extends Model
 {
-    public function findUuid($uuid)
+    public function findUuid($uuid, $relation = [])
     {
-        return $this->where('uuid', $uuid)->first();
+        return $this->with($relation)->where('uuid', $uuid)->first();
     }
 
     public function updateForUuid($uuid, $data)
@@ -131,7 +131,7 @@ class BaseModel extends Model
 
     /**
      * @param $search
-     * @param Builder $query
+     * @param Builder|\Illuminate\Database\Query\Builder $query
      * @return Builder|\Illuminate\Database\Query\Builder
      */
     protected function applySearchToQuery($search, Builder $query)
@@ -140,9 +140,20 @@ class BaseModel extends Model
             return $query;
         }
         $content = '%' . trim($search) . '%';
+
+        if(request()->has('searchables')){
+            $this->searchables = array_intersect(request('searchables'), $this->searchables);
+        }
         $query->where(function ($q) use ($content) {
             foreach ($this->searchables as $searchable) {
-                $q->orWhere($searchable, 'like', $content);
+                $searchable = explode('.',$searchable);
+                if(count($searchable) > 1){
+                    $q->orWhereHas($searchable[0], function($query) use($searchable, $content){
+                        $query->where($searchable[1], 'like', $content);
+                    });
+                }else{
+                    $q->orWhere($searchable[0], 'like', $content);
+                }
             }
         });
 

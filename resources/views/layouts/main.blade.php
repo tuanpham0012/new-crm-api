@@ -60,11 +60,11 @@
                             <div class="page-wrapper">
                                 <!-- [ breadcrumb ] start -->
                                 <div class="page-header">
-                                    <div class="card page-block">
+                                    <div class="page-block p-2 mt-3">
                                         <div class="row align-items-center">
                                             <div class="col-md-12">
                                                 <div class="page-header-title">
-                                                    <h5 class="text-[1.125rem] font-semibold m-0">{{ $page ?? '' }}</h5>
+                                                    <h5 class="">{{ $page ?? '' }}</h5>
                                                 </div>
 {{--                                                <ul class="breadcrumb">--}}
 {{--                                                    <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>--}}

@@ -9,6 +9,7 @@
         "bensampo/laravel-enum": "^6.6",
         "google-gemini-php/laravel": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "*",
         "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -31,7 +32,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helper/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

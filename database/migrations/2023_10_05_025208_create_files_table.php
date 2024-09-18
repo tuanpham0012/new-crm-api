@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->nullableMorphs('fileable');
             $table->string('url');
-            $table->string('thumb');
             $table->string('type');
+            $table->string('file_name')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
